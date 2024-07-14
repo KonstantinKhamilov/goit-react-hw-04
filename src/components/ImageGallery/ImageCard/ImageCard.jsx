@@ -1,14 +1,9 @@
-import css from "./imageCardStyle.module.css";
+const ImageCard = ({ image }) => {
+  if (!image || !image.urls || !image.urls.small) {
+    return <>No image found</>;
+  }
 
-const ImageCard = ({ image, onClick }) => {
-  return (
-    <div className={css.imageCard}>
-      <img src={image.urls.small} alt={image.alt_description} />
-      <div className={css.overlay} onClick={() => onClick(image.urls.full)}>
-        <span>View larger</span>
-      </div>
-    </div>
-  );
+  return <img src={image.urls.small} alt={image.alt_description} />;
 };
 
 export default ImageCard;

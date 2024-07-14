@@ -2,6 +2,10 @@ import ImageCard from "./ImageCard/ImageCard";
 import css from "./imageStyle.module.css";
 
 const ImageGallery = ({ images, onImageClick }) => {
+  if (!images || !Array.isArray(images)) {
+    return <div>No images found</div>;
+  }
+
   return (
     <ul className={css.imageUl}>
       {images.map((image) => (

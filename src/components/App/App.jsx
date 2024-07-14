@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import axios from "axios"; // Подключаем библиотеку axios
+import axios from "axios";
 import SearchBar from "../SearchBar/SearchBar";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "../ImageModal/ImageModal";
+
+import ReactModal from "react-modal";
+
+ReactModal.setAppElement(document.getElementById("root"));
 
 const App = () => {
   const [query, setQuery] = useState(""); // Состояние для поискового запроса
@@ -35,6 +39,7 @@ const App = () => {
         })
         .catch((error) => {
           setError("Oops! Something went wrong. Please try again later.");
+          console.error(error); // добавляем вывод ошибки в консоль
         })
         .finally(() => {
           setLoading(false);

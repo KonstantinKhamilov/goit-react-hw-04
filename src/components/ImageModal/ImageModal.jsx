@@ -7,6 +7,7 @@ const ImageModal = ({ isOpen, onRequestClose, imageUrl }) => {
       onRequestClose={onRequestClose}
       contentLabel="Image Modal"
       shouldCloseOnOverlayClick={true}
+      /*  appElement={document.getElementById("root")}*/
     >
       <img src={imageUrl} alt="Large Image" />
     </ReactModal>
