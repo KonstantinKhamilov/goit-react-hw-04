@@ -13,6 +13,7 @@ const App = () => {
   const [loading, setLoading] = useState(false); // Состояние для индикатора загрузки
   const [error, setError] = useState(null); // Состояние для сообщения об ошибке
   const [modalImage, setModalImage] = useState(null); // Состояние для модального окна
+  const [page, setPage] = useState(1); // Состояние для текущей страницы
 
   useEffect(() => {
     if (query) {
@@ -26,27 +27,33 @@ const App = () => {
             query,
             per_page: 20, // Количество картинок на странице
             client_id: "MUHR81zwB14-qxtCXLv0_E-vdiyE1jdDNCAskPgwJL0", // Замените на свой ключ
+            page,
           },
         })
         .then((response) => {
-          setImages(response.data.results);
+          setImages((prevImages) => [...prevImages, ...response.data.results]);
         })
         .catch((error) => {
-          setError({messa});
+          setError("Oops! Something went wrong. Please try again later.");
         })
         .finally(() => {
           setLoading(false);
         });
     }
-  }, [query]);
+  }, [query, page]);
 
   const handleSearch = (newQuery) => {
+    if (!newQuery || !newQuery.trim().split(" ").length) {
+      setError("Please enter a valid search query.");
+      return;
+    }
     setQuery(newQuery);
+    setError(null);
+    setPage(1); // Сбрасываем номер страницы при изменении запроса
   };
 
   const handleLoadMore = () => {
-    // Загрузка дополнительных картинок
-    // Реализуйте логику загрузки следующей порции картинок
+    setPage((prevPage) => prevPage + 1); // Увеличиваем номер страницы на 1 при нажатии на кнопку "Загрузить еще"
   };
 
   const handleImageClick = (imageUrl) => {
@@ -65,7 +72,13 @@ const App = () => {
       {images.length > 0 && (
         <ImageGallery images={images} onImageClick={handleImageClick} />
       )}
-      {images.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
+      {images.length > 0 && (
+        <LoadMoreBtn
+          onClick={handleLoadMore}
+          page={page}
+          totalPages={Math.ceil(images.length / 20)}
+        />
+      )}
       {modalImage && (
         <ImageModal
           isOpen={true}
