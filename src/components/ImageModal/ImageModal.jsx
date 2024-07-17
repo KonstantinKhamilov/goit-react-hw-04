@@ -1,4 +1,5 @@
 import ReactModal from "react-modal";
+import css from "./modal.module.css";
 
 const ImageModal = ({ isOpen, onRequestClose, imageUrl }) => {
   return (
@@ -8,8 +9,10 @@ const ImageModal = ({ isOpen, onRequestClose, imageUrl }) => {
       contentLabel="Image Modal"
       shouldCloseOnOverlayClick={true}
       /*  appElement={document.getElementById("root")}*/
+      className={css.modal}
+      overlayClassName={css.overlay}
     >
-      <img src={imageUrl} alt="Large Image" />
+      <img className={css.imgModal} src={imageUrl} alt="Large Image" />
     </ReactModal>
   );
 };

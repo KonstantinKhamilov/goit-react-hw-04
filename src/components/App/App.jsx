@@ -29,8 +29,8 @@ const App = () => {
         .get(`https://api.unsplash.com/search/photos`, {
           params: {
             query,
-            per_page: 20, // Количество картинок на странице
-            client_id: "MUHR81zwB14-qxtCXLv0_E-vdiyE1jdDNCAskPgwJL0", // Замените на свой ключ
+            per_page: 20,
+            client_id: "MUHR81zwB14-qxtCXLv0_E-vdiyE1jdDNCAskPgwJL0",
             page,
           },
         })
@@ -39,7 +39,7 @@ const App = () => {
         })
         .catch((error) => {
           setError("Oops! Something went wrong. Please try again later.");
-          console.error(error); // добавляем вывод ошибки в консоль
+          console.error(error);
         })
         .finally(() => {
           setLoading(false);
@@ -54,11 +54,11 @@ const App = () => {
     }
     setQuery(newQuery);
     setError(null);
-    setPage(1); // Сбрасываем номер страницы при изменении запроса
+    setPage(1);
   };
 
   const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1); // Увеличиваем номер страницы на 1 при нажатии на кнопку "Загрузить еще"
+    setPage((prevPage) => prevPage + 1);
   };
 
   const handleImageClick = (imageUrl) => {
