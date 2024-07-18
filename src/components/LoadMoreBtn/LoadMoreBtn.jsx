@@ -1,4 +1,5 @@
 import { useState } from "react";
+import css from "./loadMoreBtn.module.css";
 
 const LoadMoreBtn = ({ onClick }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,11 +13,7 @@ const LoadMoreBtn = ({ onClick }) => {
   };
 
   return (
-    <button
-      className="load-more-btn"
-      onClick={handleClick}
-      disabled={isLoading}
-    >
+    <button className={css.loadBtn} onClick={handleClick} disabled={isLoading}>
       {isLoading ? "Loading..." : "Load more"}
     </button>
   );

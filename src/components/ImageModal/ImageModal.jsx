@@ -8,7 +8,6 @@ const ImageModal = ({ isOpen, onRequestClose, imageUrl }) => {
       onRequestClose={onRequestClose}
       contentLabel="Image Modal"
       shouldCloseOnOverlayClick={true}
-      /*  appElement={document.getElementById("root")}*/
       className={css.modal}
       overlayClassName={css.overlay}
     >

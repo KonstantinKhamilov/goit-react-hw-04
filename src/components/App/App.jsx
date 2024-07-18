@@ -18,6 +18,7 @@ const App = () => {
   const [error, setError] = useState(null); // Состояние для сообщения об ошибке
   const [modalImage, setModalImage] = useState(null); // Состояние для модального окна
   const [page, setPage] = useState(1); // Состояние для текущей страницы
+  const [isButtonLoading, setIsButtonLoading] = useState(false); // Новое состояние для индикатора загрузки кнопки
 
   useEffect(() => {
     if (query) {
@@ -55,14 +56,17 @@ const App = () => {
     setQuery(newQuery);
     setError(null);
     setPage(1);
+    setIsButtonLoading(true); // Установка состояния загрузки кнопки
   };
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
+    setIsButtonLoading(true); // Установка состояния загрузки кнопки
   };
 
   const handleImageClick = (imageUrl) => {
     setModalImage(imageUrl);
+    setIsButtonLoading(true); // Установка состояния загрузки кнопки
   };
 
   const handleCloseModal = () => {
@@ -72,7 +76,7 @@ const App = () => {
   return (
     <div className="app">
       <SearchBar handleSearch={handleSearch} />
-      {loading && <Loader />}
+      {(loading || isButtonLoading) && <Loader />}
       {error && <ErrorMessage message={error} />}
       {images.length > 0 && (
         <ImageGallery images={images} onImageClick={handleImageClick} />
