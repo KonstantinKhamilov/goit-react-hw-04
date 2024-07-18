@@ -6,6 +6,11 @@ const SearchBar = ({ handleSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const query = e.target.elements.search.value;
+    if (!query || !query.trim().split(" ").length) {
+      // Вывод ошибки
+      alert("Please enter a valid search query.");
+      return;
+    }
     handleSearch(query);
   };
 
